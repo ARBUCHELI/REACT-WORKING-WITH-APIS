@@ -3,5 +3,24 @@
 
 * Introduction to working with React APIs
 -----------------------------------------
+We'll study how to call APIs with the fetch method.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* What you should know
+----------------------
+- Basic React
+	. Some experience with creating components and props.
+
+- JavaScript
+	. Experience with JavaScript, with ES6 syntax.
+
+- Basic Node.js
+	. Some experience with Node.js helps but is not a must.
+
+- Visual Studio Code
+	. Any editor will do.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

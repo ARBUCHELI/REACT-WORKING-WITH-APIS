@@ -8,3 +8,16 @@
 - Postman.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* Initialize a React project
+----------------------------
+npx create-react-app <name of the app>  ---> Remember that the npx is basically just the npmx but without having the create-react-app package installed locally.
+
+- Trobubleshooting: npm install -g create-react-app
+
+npx create-react-app newsapp
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+

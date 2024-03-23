@@ -19,5 +19,78 @@ npx create-react-app newsapp
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Concepts used
+---------------
+
+* Rest and APIs Refresher
+-------------------------
+
+Restful APIS ---> 
+	. Using HTTP protocols to do transactions with a back end
+	. Using GET, POST, PUT, and DELETE calls to the back end
+	. Interacting with endpoints created on the back end
+	. GET: gets the data	
+	. POST: adds new data
+	. PUT: updates data
+	. DELETE: deletes data
+
+* Asynchronous vs. Synchronous
+------------------------------
+	Sync: Code ---> Code halts ---> Code
+	----			        XXXX
+
+       Async: Code ---> Code hatls ---> Code
+       ------
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

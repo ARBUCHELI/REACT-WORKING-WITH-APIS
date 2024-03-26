@@ -3,3 +3,120 @@
 
 * Initial component for News
 ----------------------------
+
+News.js
+-------
+import React, { Component } from 'react';
+import NewSingle from './NewSingle';
+
+class News extends Component {
+    renderItems() {
+        return this.props.items.map((item) => {
+            <NewSingle key={item.id} item={item} />
+        });
+    }
+    render() {
+        return (
+            <ul>
+                {this.renderItems()}
+            </ul>
+        )
+    }
+}
+
+export default News;
+
+NewSingle.js
+------------
+import React from 'react';
+
+const NewSingle = (item) => {
+    <li>
+        Item
+    </li>
+}
+
+export default NewSingle;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* Fetch data and update your state
+----------------------------------
+At this point we'll have to use lifecycle methods to update our state.
+
+News.js
+-------
+import React, { Component } from 'react';
+import NewSingle from './NewSingle';
+
+class News extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            news: [],
+        };
+    }
+
+    componentDidMount() { ---> Remember that this method is used for handling side effects in React.
+        const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-02-26&sortBy=publishedAt&apiKey=${process.env.REACT_APP__API}`
+        fetch(url) ---> Remembet that this fetch syntax is very common in React.
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    news: data.articles
+                })
+            })
+            .catch((error) => console.log(error));
+    }
+
+    renderItems() {
+        return this.props.items.map((item) => {
+            return <NewSingle key={item.url} item={item} />
+        });
+    }
+    render() {
+        return (
+            <div className='row'>
+                {this.renderItems()}
+            </div>
+        )
+    }
+}
+
+export default News;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

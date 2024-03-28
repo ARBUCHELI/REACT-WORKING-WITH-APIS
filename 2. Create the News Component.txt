@@ -89,6 +89,107 @@ export default News;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Finalize NewSingle component and styles
+-----------------------------------------
+
+We are going to leverage the card using Materialize (A CSS library).
+
+index.html
+----------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
+
+NewSingle.js
+------------
+import React from 'react';
+
+const NewSingle = ({ item }) => {
+  <div className='col s4'>
+    <div className='card medium'>
+        <div className='card-image'>
+            <img src={item.urlToImage} alt={item.title}/>
+            <span className='card-title'>{item.source.name}</span>
+        </div>
+    </div>
+    <div className='card-content'>
+        <p>{item.title}</p>
+    </div>
+    <div className='card-action'>
+        <a href={item.url} target='_blank' rel='noreferrer'>Full Article</a>
+    </div>
+  </div>;
+};
+
+export default NewSingle;
+
+News.js
+-------
+import React, { Component } from 'react';
+import NewSingle from './NewSingle';
+
+class News extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            news: [],
+        };
+    }
+
+    componentDidMount() {
+        const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-02-26&sortBy=publishedAt&apiKey=${process.env.REACT_APP__API}`
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    news: data.articles
+                })
+            })
+            .catch((error) => console.log(error));
+    }
+
+    renderItems() {
+        return this.state.news.map((item) => {
+            return <NewSingle key={item.url} item={item} />
+        });
+    }
+    render() {
+        return (
+            <div className='row'>
+                {this.renderItems()}
+            </div>
+        )
+    }
+}
+
+export default News;
+
+
+
+
+
+
 
 
 

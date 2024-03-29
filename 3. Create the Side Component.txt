@@ -1,0 +1,173 @@
+3. Create the Side Component
+----------------------------
+
+* Create the new fetch() method
+-------------------------------
+
+Sidenews.js
+-----------
+import React, { Component } from 'react';
+import SingleSide from './SingleSide';
+
+class Sidenews extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sidenews: [],
+        };
+    }
+
+    componentDidMount() {
+        const url = `https://newsapi.org/v2/${this.props.news.type}?${this.props.news.query}&apiKey=${process.env.REACT_APP_API}`;
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    sidenews: data.articles
+                })
+            })
+            .catch((error) => console.log(error));
+    }
+
+    renderItems() {
+        return this.state.sidenews.map((item) => {
+            return <SingleSide key={item.url} item={item} />
+        });
+    }
+    render() {
+        return (
+            <div className='row'>
+                {this.renderItems()}
+            </div>
+        )
+    }
+}
+
+export default Sidenews;
+
+App.js
+------
+import React, { Component} from 'react';
+import './App.css';
+import News from './News';
+import Sidenews from './Sidenews';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      news1: {
+        type: 'top-headlines',
+        query: 'sources=bbc-news',
+      },
+      news2: {
+        type: 'everything',
+        query: 'domains=techcrunch.com&language=en',
+      },
+      news3: {
+        type: 'everything',
+        query: 'domains=wsj.com',
+      },
+    };
+  }
+  render() {
+    return (
+      <div className='container-fluid'>
+        <div className='navbar-fixed'>
+          <nav>
+            <div className='nav-wrapper'>
+              <a href='/' className='brand-logo'>
+                My Feed
+              </a>
+            </div>
+          </nav>
+        </div>
+        <div className='row'>
+          <div className='col s8'>
+            <News news={this.state.news1} />
+            <News news={this.state.news2} />
+          </div>
+          <div className='col s4'>
+            <Sidenews news={this.state.news3} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* Create a new component for side news
+--------------------------------------
+
+SingleSide.js
+-------------
+import React from 'react';
+
+const SingleSide = ({item}) => (
+    <div>
+        <div className='divider'></div>
+        <a href={item.url} target='_blank' rel='noreferrer'>
+            <div className='section'>
+                <h5>{item.source.name}</h5>
+                <p>{item.title} by {item.author}</p>
+            </div>
+        </a>
+    </div>
+)
+
+export default SingleSide;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

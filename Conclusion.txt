@@ -1,2 +1,10 @@
 * Conclusion
 ------------
+. Add more connections
+. Many APIs are available
+. LEARN MORE ABOUT JWT
+----------------------
+	JSON Web Tokens
+	Security Features for APIs
+
+

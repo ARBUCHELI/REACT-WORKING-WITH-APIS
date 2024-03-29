@@ -126,6 +126,130 @@ export default SingleSide;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Add and error component for fetch errors
+------------------------------------------
+
+Sidenews.js
+-----------
+import React, { Component } from 'react';
+import SingleSide from './SingleSide';
+import Error from './Error';
+
+class Sidenews extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sidenews: [],
+            error: false,
+        };
+    }
+
+    componentDidMount() {
+        const url = `https://newsapi.org/v2/${this.props.news.type}?${this.props.news.query}&apiKey=${process.env.REACT_APP_API}`;
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    sidenews: data.articles
+                })
+            })
+            .catch((error) => {
+                this.setState({
+                    error: true,
+                })
+            })
+    }
+
+    renderItems() {
+        if(!this.state.error) {
+            return this.state.sidenews.map((item) => {
+                return <SingleSide key={item.url} item={item} />
+            });
+        } else {
+            return <Error />
+        } 
+    }
+    render() {
+        return (
+            <div className='row'>
+                {this.renderItems()}
+            </div>
+        )
+    }
+}
+
+export default Sidenews;
+
+News.js
+-------
+import React, { Component } from 'react';
+import NewSingle from './NewSingle';
+import Error from './Error';
+
+class News extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            news: [],
+            error: false,
+        };
+    }
+
+    componentDidMount() {
+        const url = `https://newsapi.org/v2/${this.props.news.type}?${this.props.news.query}&apiKey=${process.env.REACT_APP_API}`;
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    news: data.articles
+                })
+            })
+            .catch((error) => {
+                this.setState({
+                    error: true,
+                })
+            });
+    }
+
+    renderItems() {
+        if (!this.state.error) {
+            return this.state.news.map((item) => {
+                return <NewSingle key={item.url} item={item} />
+            });
+        } else {
+            return <Error />
+        }
+       
+    }
+    render() {
+        return (
+            <div className='row'>
+                {this.renderItems()}
+            </div>
+        )
+    }
+}
+
+export default News;
+
+Error.js
+--------
+import React from 'react';
+
+const Error = () => {
+    <div>
+        <h1>There are no news, check your sources!</h1>
+    </div>
+}
+
+export default Error;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
